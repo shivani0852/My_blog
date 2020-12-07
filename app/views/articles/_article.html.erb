@@ -1,0 +1,10 @@
+<div id="article_<%= article.id %>" class="block container">
+  <h4><b><p><%= article.title %></p></b></h4>
+  <p><%= article.text %></p>
+  <%#= link_to 'read more', article %>
+  <%= link_to 'Show', article_path(article), :class => "button btn btn-info"  %>
+  <% if article.user.id == current_user.id %>
+    <%= link_to 'Edit', edit_article_path(article), :class => "button btn btn-primary", :id => 'edit_article' %>
+    <%= link_to "Delete", article_path(article), method: :delete, remote: true, :id => "delete_article", :class => "button btn btn-danger"  %>
+  <% end %>
+</div><br>

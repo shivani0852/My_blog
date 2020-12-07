@@ -1,0 +1,16 @@
+<br>
+<h1>Listing Articles</h1>
+<!-- <br> -->
+<div id = 'new_article'>
+  <%= link_to 'New Article', new_article_path, remote: true, :class => "button btn btn-success" %>
+</div>
+<br>
+
+<div id="articles">
+  <% @articles.each do |article| %>
+    <%= render partial: 'article', locals:{article: article} %>
+  <% end %>
+</div>
+
+<%= will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+<br>

@@ -1,0 +1,33 @@
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @article.text %>
+</p>
+
+<p>
+  <strong>Images:</strong>
+  <% @article.images.each do |image| %>
+    <%= image_tag image.variant(resize_to_limit: [200, 200]) %>
+    <%= link_to(image.filename, rails_blob_path(image, disposition: "attachment")) %>
+  <% end %>
+</p>
+
+<p>
+</p>
+
+<h2>Comments</h2>
+<% @article.comments.each do |comment| %>
+  <%= render partial: 'comments/comment', locals:{comment: comment} %>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= render 'comments/form' %>
+ 
+<% if @article.user.id == current_user.id %>
+  <td><%= link_to 'Edit', edit_article_path(@article), remote: true, :class => "button btn btn-primary", :id => "edit_article" %></td>
+<% end %>
+<%= link_to 'Back', articles_path,:class => "button btn btn-info"  %>
