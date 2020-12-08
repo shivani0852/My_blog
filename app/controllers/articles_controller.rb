@@ -10,6 +10,15 @@ class ArticlesController < ApplicationController
     @articles = Article.paginate(page: params[:page], per_page: 3)
   end
 
+  def search
+    if params[:search].blank?
+      redirect_to(articles_path, alert: "Empty field!") and return
+    else
+      keyword = params[:search]
+      @articles = Article.where("title LIKE ?", "%#{keyword}%")
+    end
+  end
+
   def show
     @article = Article.find(params[:id])
     # redirect_back(fallback_location: root_path)

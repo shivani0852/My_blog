@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  # get '/search' => 'articles#search', :as => 'search_page'
+  get '/search' => 'articles#search', :as => 'search_page'
 
 end
