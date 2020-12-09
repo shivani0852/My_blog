@@ -1,7 +1,6 @@
 class ArticlesController < ApplicationController
-
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
    # http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show] 
-
   # layout "inventory", except: [:index]
     # layout Proc.new { |controller| controller.request.xhr? ? "application" : "inventory" }
     
@@ -20,8 +19,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
-    # redirect_back(fallback_location: root_path)
   end
 
   def new
@@ -29,7 +26,6 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def create
@@ -47,8 +43,6 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
-
     if @article.update(article_params)
       respond_to do |format|
         format.html { redirect_to @article, notice: 'Article was successfully updated' }
@@ -60,7 +54,6 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
     respond_to do |format|
       # format.html { redirect_to articles_path, notice: 'Article was successfully destroyed'}
@@ -71,5 +64,9 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(:title, :text, images: [])
+    end
+
+    def set_article
+      @article = Article.find(params[:id])
     end
 end
