@@ -9,6 +9,11 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :articles do
+    resources :likes
+  end
+
+
   get '/search' => 'articles#search', :as => 'search_page'
 
 end

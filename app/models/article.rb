@@ -6,6 +6,7 @@ class Article < ApplicationRecord
   has_many_attached :images
   belongs_to :user
   # after_create :send_new_article_email
+  has_many :likes, dependent: :destroy
 
   # private
 

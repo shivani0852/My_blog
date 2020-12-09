@@ -2,6 +2,18 @@
   <h4><b><p><%= article.title %></p></b></h4>
   <p><%= article.text %></p>
   <%#= link_to 'read more', article %>
+
+  <!-- Code of article like -->
+  <% pre_like = article.likes.find { |like| like.user_id == current_user.id} %>
+  <% if pre_like %>
+    <%= button_to 'Unlike', article_like_path(article, pre_like), method: :delete, :class => "unlike" %>
+  <% else %>
+    <%= button_to 'Like', article_likes_path(article), method: :post, :class => "like" %>
+  <% end %>
+
+  <p><%= article.likes.count %> <%= (article.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+  <!-- end -->
+
   <%= link_to 'Show', article_path(article), :class => "button btn btn-info"  %>
   <% if article.user.id == current_user.id %>
     <%= link_to 'Edit', edit_article_path(article), :class => "button btn btn-primary", :id => 'edit_article' %>

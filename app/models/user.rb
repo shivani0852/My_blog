@@ -6,7 +6,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable, :timeoutable,
          :lockable, :trackable, :omniauthable, :omniauth_providers => [:facebook]
   after_create :assign_default_role
-  has_many :articles
+  has_many :articles, dependent: :destroy
+  has_many :likes, dependent: :destroy
+
 
   def assign_default_role
     self.add_role(:user) if self.roles.blank?
